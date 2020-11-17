@@ -19,9 +19,9 @@
 #' plot_venn(dfA, dfB, euler=TRUE)
 plot_venn <- function(dfA, dfB, by=NULL, na_matches="never", euler=FALSE, verbose=FALSE) {
   if (verbose) message("Calculating inner joins...")
-  inner <- nrow(inner_join(dfA, dfB, by=by, na_matches=na_matches))
+  inner <- nrow(dplyr::inner_join(dfA, dfB, by=by, na_matches=na_matches))
   if (verbose) message("Calculating anti joins...")
-  antiA <- nrow(anti_join(dfA, dfB, by=by, na_matches=na_matches))
+  antiA <- nrow(dplyr::anti_join(dfA, dfB, by=by, na_matches=na_matches))
   antiB <- nrow(dfB) - inner
 
   plot_type <- "Euler"
@@ -84,8 +84,8 @@ plot_venn <- function(dfA, dfB, by=NULL, na_matches="never", euler=FALSE, verbos
   }
 
   if (verbose) message(paste("Plotting", plot_type, "diagram...", sep=" "))
-  ggplot(df_circles, aes(x0 = x0, y0 = y0, r = r, fill = labels)) +
-    geom_circle(alpha = .3, colour = 'black') +
+  ggplot2::ggplot(df_circles, aes(x0 = x0, y0 = y0, r = r, fill = labels)) +
+    ggforce::geom_circle(alpha = .3, colour = 'black') +
     coord_fixed() +
     theme_void() +
     annotate("text", x = df_counts$x, y = df_counts$y, label = df_counts$counts, size = 5)
