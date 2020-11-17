@@ -33,6 +33,10 @@ A ggplot object with the Venn or Euler diagram.
 Plot Venn or Euler diagram with two sets
 }
 \examples{
+# Generate sample data
+dfA <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story"), rating=c(5, 3, 7))
+dfB <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story", "Inception"), rating=c(5, 3, 7, 8))
+
 # Plot Venn diagram
 plot_venn(dfA, dfB)
 

@@ -12,6 +12,10 @@
 #' @export
 #'
 #' @examples
+#' # Generate sample data
+#' dfA <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story"), rating=c(5, 3, 7))
+#' dfB <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story", "Inception"), rating=c(5, 3, 7, 8))
+#'
 #' # Plot Venn diagram
 #' plot_venn(dfA, dfB)
 #'
@@ -84,10 +88,10 @@ plot_venn <- function(dfA, dfB, by=NULL, na_matches="never", euler=FALSE, verbos
   }
 
   if (verbose) message(paste("Plotting", plot_type, "diagram...", sep=" "))
-  ggplot2::ggplot(df_circles, aes(x0 = x0, y0 = y0, r = r, fill = labels)) +
+  ggplot2::ggplot(df_circles, ggplot2::aes(x0 = x0, y0 = y0, r = r, fill = labels)) +
     ggforce::geom_circle(alpha = .3, colour = 'black') +
-    coord_fixed() +
-    theme_void() +
-    annotate("text", x = df_counts$x, y = df_counts$y, label = df_counts$counts, size = 5)
+    ggplot2::coord_fixed() +
+    ggplot2::theme_void() +
+    ggplot2::annotate("text", x = df_counts$x, y = df_counts$y, label = df_counts$counts, size = 5)
 
 }
