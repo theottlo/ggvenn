@@ -1,0 +1,87 @@
+---
+title: "Plotting Venn and Euler diagrams"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Plotting Venn and Euler diagrams}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ggvenn)
+```
+
+## Venn diagrams vs. Euler diagrams
+
+Most have probably heard of Venn diagrams, which show all possible relations between two or more sets; however, Euler diagrams only show _existing_ relations. This is best explain with an example. Consider the following two data frames:
+
+```{r}
+(dfA <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story"), 
+                      rating=c(5, 3, 7)))
+```
+
+```{r}
+(dfB <- data.frame(movie=c("Finding Nemo", "Inception", "Toy Story"),
+                      rating=c(4, 3, 6)))
+```
+
+We can see that there aren't any rows in common between the two data frames; thus, in the intersection between the two circles of a Venn diagram, there should be a 0.
+
+```{r}
+plot_venn(dfA, dfB)
+```
+
+Recall that in a Euler diagram, only _existing_ relations are visualized. Since there are _0_ rows in common, in a Euler diagram, the intersection between the two circles does not exist. In other words, Euler diagrams only show non-zero relations.
+
+```{r}
+plot_venn(dfA, dfB, euler=TRUE)
+```
+
+
+In cases where the existing relations is equivalent to all relations (i.e. no non-zero relations), the Euler diagram is  equivalent to the Venn diagram. 
+
+```{r}
+(dfA <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story"), 
+                      rating=c(5, 3, 7)))
+```
+
+```{r}
+(dfB <- data.frame(movie=c("Finding Nemo", "Inception", "Toy Story"),
+                      rating=c(5, 3, 6)))
+```
+
+```{r}
+plot_venn(dfA, dfB)
+```
+
+```{r}
+plot_venn(dfA, dfB, euler=TRUE)
+```
+
+## Usage
+
+`ggvenn::plot_venn()` is used to plot Venn diagrams or Euler diagrams (if specified). It relies on `dplyr::inner_join()` and `dplyr::anti_join()` to calculate the relationships between the two data frames. These results are used to annotate the diagrams and in the case of Euler diagrams, also determines the positions of the two circles.
+
+To demonstrate the usage of `ggvenn:plot_venn`, I'll first generate some sample data:
+```{r}
+dfA <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story"), rating=c(5, 3, 7))
+dfB <- data.frame(movie=c("Finding Nemo", "Shrek", "Toy Story", "Inception"), rating=c(5, 3, 7, 8))
+```
+
+By default, `plot_venn` will create a Venn diagram:
+```{r}
+plot_venn(dfA, dfB)
+```
+
+To create a Euler diagram, just set `euler=TRUE`:
+```{r}
+plot_venn(dfA, dfB, euler=TRUE)
+```
+
