@@ -16,3 +16,8 @@ Imports:
     ggplot2,
     ggforce,
     dplyr
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
