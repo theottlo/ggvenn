@@ -70,9 +70,10 @@ A `README.Rmd` was initialized using `use_readme_rmd()` and edited to
 include a brief description of the package as well as the package
 development process. This was then knit to yield a `README.md`.
 
-I included some information on Venn/Euler diagrams and went over a few
-examples with expected outputs in a vignette found in the `vignettes`
-directory (`vignettes/`). This done with `use_vignette()`.
+I included some information on Venn/Euler diagrams and went over the
+basic usage in a vignette found in the `vignettes` directory
+(`vignettes/plotting-venn-euler-diagrams.Rmd`). This done with
+`use_vignette()`.
 
 **Functions**
 
